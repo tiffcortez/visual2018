@@ -87,7 +87,17 @@ namespace ProyectoVisual
                     grafo.AgregaVertice(lienzo, e.X, e.Y, pictureBox1.Width, pictureBox1.Height);
                     up2Date = false;
                     break;
-
+                case 82: // eliminar vertice
+                        for (int i = 0; i < grafo.Vertices.Count; i++) {
+                        Vertice v = grafo.Vertices[i];
+                        if (v.Seleccion(e.X, e.Y))
+                        {
+                            grafo.Vertices.RemoveAt(i);
+                            break;
+                        }
+                            }
+                    pictureBox1.Invalidate();
+                    break;
                 case 4: //Agregar aristas
                     foreach(Vertice v in grafo.Vertices){
                         if (v.Seleccion(e.X, e.Y) && toque == 0)
@@ -102,7 +112,6 @@ namespace ProyectoVisual
                             v2.Seleccionar(lienzo);
                             if (!v1.Equals(v2))
                             {
-
                                 grafo.AgregaArista(lienzo,v1, v2);
                                 up2Date = false;
                                 //lienzo.DrawLine(new Pen(Color.Black), v1.X, v1.Y, v2.X, v2.Y);
@@ -113,6 +122,7 @@ namespace ProyectoVisual
                     Console.WriteLine(toque);
                     break;
             }
+            
         }
 
 
@@ -357,6 +367,11 @@ namespace ProyectoVisual
         private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
             control = false;
+        }
+
+        private void eliminarVérticeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            tipo = 82;
         }
     }
 }
