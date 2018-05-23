@@ -84,7 +84,11 @@ namespace ProyectoVisual
         //SELECCIONAR VERTICE
         public void SeleccionarVertice(Graphics g, int vid)
         {
-            vselec = vertices[vid];
+            for (int i = 0; i < vertices.Count; i++)
+            {
+                if(vertices[i].ID == vid)
+                    vselec = vertices[i];
+            }
             vselec.Seleccionar(g);
         }
         
@@ -144,7 +148,7 @@ namespace ProyectoVisual
         //DIBUJAR GRAFO
         public void Dibujar(Graphics g)
         {
-            g.Clear(Color.LightGray);
+            g.Clear(Color.White);
             if(vertices.Count>0)
                 foreach (Vertice v in vertices)
                     v.Dibujar(g);
@@ -179,5 +183,18 @@ namespace ProyectoVisual
                 g.aristas.Add(a);
             }
         }
-    }
+        public void elimAr(int p)
+        {
+            for (int i = 0; i < aristas.Count; i++) {
+                if (aristas[i].IDV1 == p || aristas[i].IDV2 == p) {
+                    aristas.RemoveAt(i);
+                    i--;
+                }
+                
+            }
+
+
+        }
+        
+}
 }

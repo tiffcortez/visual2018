@@ -12,8 +12,10 @@ namespace ProyectoVisual
         private int id;
         private int x, y;               //
         private int xv, yv, radio = 18;
-
-        public Vertice(int id_in,int X,int Y)
+        private Pen juan = new Pen(Color.Blue);
+        private Font letra = new Font("Arial", 20);
+        private SolidBrush brocha = new SolidBrush(Color.Black);
+        public Vertice(int id_in, int X, int Y)
         {
             id = id_in;
             radio = 18;
@@ -93,9 +95,7 @@ namespace ProyectoVisual
         }
         public void Dibujar(Graphics g)
         {
-            Pen juan = new Pen(Color.Blue);
-            Font letra = new Font("Arial", 20);
-            SolidBrush brocha = new SolidBrush(Color.Black);
+
 
             g.DrawEllipse(juan, x - radio, y - radio, radio * 2, radio * 2);
             g.DrawString(Convert.ToString(id + 1), letra, brocha, x - radio + 5, y - radio + 3);
@@ -122,6 +122,7 @@ namespace ProyectoVisual
         {
             return (xnew - radio > 0 && xnew + radio < width && ynew - radio > 0 && ynew + radio < height);
         }
-       
+
+
     }
 }

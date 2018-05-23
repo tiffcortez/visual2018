@@ -70,14 +70,17 @@ namespace ProyectoVisual
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
-            //lienzo.Clear(Color.LightGray);
+            lienzo.Clear(Color.White);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             pb.Paint += new PaintEventHandler(pictureBox1_Paint);
         }
-
+        public void DibujarG() {
+            lienzo.Clear(Color.White);
+            grafo.Dibujar(lienzo);
+        }
         //CLICK
         private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
         {
@@ -89,14 +92,15 @@ namespace ProyectoVisual
                     break;
                 case 82: // eliminar vertice
                         for (int i = 0; i < grafo.Vertices.Count; i++) {
-                        Vertice v = grafo.Vertices[i];
-                        if (v.Seleccion(e.X, e.Y))
-                        {
-                            grafo.Vertices.RemoveAt(i);
-                            break;
-                        }
+                             Vertice v = grafo.Vertices[i];
+                             if (v.Seleccion(e.X, e.Y))
+                                {
+                                      grafo.elimAr(v.ID);
+                                      grafo.Vertices.RemoveAt(i);
+                                      break;
+                                }
                             }
-                    pictureBox1.Invalidate();
+                    DibujarG();
                     break;
                 case 4: //Agregar aristas
                     foreach(Vertice v in grafo.Vertices){
@@ -119,10 +123,11 @@ namespace ProyectoVisual
                             }
                         }
                     }
-                    Console.WriteLine(toque);
                     break;
             }
             
+            Console.WriteLine(grafo.Aristas.Count);
+          //  pictureBox1.Invalidate();
         }
 
 
@@ -242,7 +247,7 @@ namespace ProyectoVisual
                         if (MessageBox.Show("Si continúa los cambios se perderán, está seguro de continuar?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
                         {
                             borrar = true;
-                            lienzo.Clear(Color.LightGray);
+                            lienzo.Clear(Color.White);
                             grafo.copiar(grafoaux);
                             grafo.destruir();
                             up2Date = true;
