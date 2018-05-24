@@ -30,7 +30,8 @@ namespace ProyectoVisual
         //Graficos
         PictureBox pb;
         Graphics lienzo;
-
+        Pen flD;
+        int tam = 4;
         //Acciones
         int tipo; //Define el tipo de objeto que se va a agregar
         int selectMove = -1;                   //selectMove es para el nodo que fue seleccionado para que se mueva
@@ -43,7 +44,7 @@ namespace ProyectoVisual
         bool moviendo = false;
 
         Grafo grafo;
-
+        
 
         public Form1()
         {
@@ -54,11 +55,15 @@ namespace ProyectoVisual
         //Inicializacion de todas las variables
         public void Inicializar()
         {
+            flD = new Pen(Color.Black,tam);
+            flD.EndCap = System.Drawing.Drawing2D.LineCap.ArrowAnchor;
+
+
             archivo = new Archivo();
             pb = new PictureBox();
             lienzo = pictureBox1.CreateGraphics();
-            grafo = new Grafo();
-            grafoaux = new Grafo();
+            grafo = new Grafo(flD);
+            grafoaux = new Grafo(flD);
             Controls.Add(pb);
 
             Actualizado = new Thread(checarActualizaciones);
@@ -66,6 +71,9 @@ namespace ProyectoVisual
             up2Date = true;
             corriendoPrograma = true;
             Actualizado.Start();
+
+            
+
         }
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
@@ -89,6 +97,28 @@ namespace ProyectoVisual
                 case 0: // Agregar vértices
                     grafo.AgregaVertice(lienzo, e.X, e.Y, pictureBox1.Width, pictureBox1.Height);
                     up2Date = false;
+                    break;
+                case 2: //Arista dirigida
+                    foreach (Vertice v in grafo.Vertices)
+                    {
+                        if (v.Seleccion(e.X, e.Y) && toque == 0)
+                        {
+                            v1 = v;
+                            toque = 1;
+                            v1.Seleccionar(lienzo);
+                        }
+                        else if (v.Seleccion(e.X, e.Y) && toque == 1)
+                        {
+                            v2 = v;
+                            v2.Seleccionar(lienzo);
+                            if (!v1.Equals(v2))
+                            {
+                                grafo.AgregarAristaDir(lienzo, v1, v2);
+                                up2Date = false;
+                                toque = 0;
+                            }
+                        }
+                    }
                     break;
                 case 82: // eliminar vertice
                         for (int i = 0; i < grafo.Vertices.Count; i++) {
@@ -192,7 +222,7 @@ namespace ProyectoVisual
                     archivo.Ruta = openFileDialog1.FileName;
 
                     //abre el grafo nuevo
-                    grafo = archivo.Abrir();
+                    grafo = archivo.Abrir(flD);
                     grafo.Dibujar(lienzo);
                 }
                 else
@@ -317,7 +347,7 @@ namespace ProyectoVisual
                                 archivo.Ruta = openFileDialog1.FileName;
 
                                 //abre el grafo nuevo
-                                grafo = archivo.Abrir();
+                                grafo = archivo.Abrir(flD);
                                 grafo.Dibujar(lienzo);
                             }
                             else
@@ -377,6 +407,11 @@ namespace ProyectoVisual
         private void eliminarVérticeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             tipo = 82;
+        }
+
+        private void agregarAristaDirigidaToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            tipo = 2;
         }
     }
 }

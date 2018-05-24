@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Drawing;
 
 namespace ProyectoVisual
 {
@@ -33,10 +34,10 @@ namespace ProyectoVisual
             
         }
 
-        public Grafo Abrir()
+        public Grafo Abrir(Pen D)
         {
 
-            Grafo g = new Grafo();
+            Grafo g = new Grafo(D);
             g = JsonConvert.DeserializeObject<Grafo>(System.IO.File.ReadAllText(ruta));
 
             

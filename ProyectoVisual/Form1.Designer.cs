@@ -182,6 +182,7 @@
             this.agregarAristaDirigidaToolStripMenuItem1.Name = "agregarAristaDirigidaToolStripMenuItem1";
             this.agregarAristaDirigidaToolStripMenuItem1.Size = new System.Drawing.Size(190, 22);
             this.agregarAristaDirigidaToolStripMenuItem1.Text = "Agregar arista dirigida";
+            this.agregarAristaDirigidaToolStripMenuItem1.Click += new System.EventHandler(this.agregarAristaDirigidaToolStripMenuItem1_Click);
             // 
             // eliminarAristaToolStripMenuItem1
             // 

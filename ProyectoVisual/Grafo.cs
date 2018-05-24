@@ -13,12 +13,13 @@ namespace ProyectoVisual
         private List<Vertice> vertices;
         private List<Arista> aristas;
         private int idv, ida; //Identificador para los vértices y las aristas
-
+        private Pen p;
         //selecciones
         private Vertice vselec;
 
-        public Grafo()
+        public Grafo(Pen DL)
         {
+            p = DL;
             vertices = new List<Vertice>();
             aristas = new List<Arista>();
             idv = 0;
@@ -125,7 +126,7 @@ namespace ProyectoVisual
 
         }
 
-        //AGREGAR ARISTA
+        //AGREGAR ARISTA NO DIRIGIDA
         public void AgregaArista(Graphics g, Vertice v1, Vertice v2)
         {
             
@@ -144,6 +145,19 @@ namespace ProyectoVisual
             }
 
         }
+
+        //Agregar arista dirigida
+        public void AgregarAristaDir(Graphics g, Vertice v1, Vertice v2) {
+            try {
+                Arista a = new Arista(ida, v1.ID, v2.ID, v1.X, v1.Y, v2.X, v2.Y,1);
+                aristas.Add(a);
+                ida++;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("No se puede");
+            }
+        }
         
         //DIBUJAR GRAFO
         public void Dibujar(Graphics g)
@@ -153,9 +167,14 @@ namespace ProyectoVisual
                 foreach (Vertice v in vertices)
                     v.Dibujar(g);
 
-            if(aristas.Count>0)
+            if (aristas.Count > 0)
                 foreach (Arista a in aristas)
-                    a.DibujaArista(g);
+                {
+                    if (a.Dire == 0)
+                        a.DibujaArista(g);
+                    else
+                        a.DibujarAristaDir(g, p);
+                }
         }
 
         public void destruir()

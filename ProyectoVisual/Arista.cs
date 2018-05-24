@@ -14,7 +14,7 @@ namespace ProyectoVisual
     {
         private int id, idv1, idv2;
         private int x1, y1, x2, y2;
-
+        private int Dir;
         public Arista(int id_in, int idv1_in, int idv2_in, int x1_in, int y1_in, int x2_in, int y2_in)
         {
            
@@ -25,8 +25,18 @@ namespace ProyectoVisual
             y1 = y1_in;
             x2 = x2_in;
             y2 = y2_in;
+            Dir = 0;
         }
-        
+        public Arista(int id_in, int idv1_in, int idv2_in, int x1_in, int y1_in, int x2_in, int y2_in, int D) {
+            id = id_in;
+            idv1 = idv1_in;
+            idv2 = idv2_in;
+            x1 = x1_in;
+            y1 = y1_in;
+            x2 = x2_in;
+            y2 = y2_in;
+            Dir = D;
+        }
         //getters setters
 
         public int ID
@@ -114,11 +124,28 @@ namespace ProyectoVisual
             }
         }
 
+        public int Dire
+        {
+            get
+            {
+                return Dir;
+            }
+
+            set
+            {
+                Dir = value;
+            }
+        }
+
         public void DibujaArista(Graphics g)
         {
-            Pen pablo = new Pen(Color.Black);
+            Pen pablo = new Pen(Color.Black,4);
 
             g.DrawLine(pablo, x1, y1, x2, y2);
+        }
+
+        public void DibujarAristaDir(Graphics g, Pen P) {
+            g.DrawLine(P, x1, y1, x2, y2);
         }
 
         public bool ChecarVertice(Vertice v)
