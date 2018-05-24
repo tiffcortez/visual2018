@@ -151,7 +151,7 @@ namespace ProyectoVisual
             try {
                 Arista a = new Arista(ida, v1.ID, v2.ID, v1.X, v1.Y, v2.X, v2.Y,1);
                 aristas.Add(a);
-                a.DibujarAristaDir(g, p);
+                a.DibujaArista(g);
                 ida++;
             }
             catch (Exception ex)
@@ -174,7 +174,7 @@ namespace ProyectoVisual
                     if (a.Dire == 0)
                         a.DibujaArista(g);
                     else
-                        a.DibujarAristaDir(g, p);
+                        a.DibujaArista(g);
                 }
         }
 
