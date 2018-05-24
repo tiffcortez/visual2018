@@ -43,7 +43,6 @@
             this.aristaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.agregarAristaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.agregarAristaDirigidaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.eliminarAristaToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.seleccionarAristaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ayudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
@@ -164,7 +163,6 @@
             this.aristaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.agregarAristaToolStripMenuItem1,
             this.agregarAristaDirigidaToolStripMenuItem1,
-            this.eliminarAristaToolStripMenuItem1,
             this.seleccionarAristaToolStripMenuItem});
             this.aristaToolStripMenuItem.Name = "aristaToolStripMenuItem";
             this.aristaToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
@@ -183,12 +181,6 @@
             this.agregarAristaDirigidaToolStripMenuItem1.Size = new System.Drawing.Size(190, 22);
             this.agregarAristaDirigidaToolStripMenuItem1.Text = "Agregar arista dirigida";
             this.agregarAristaDirigidaToolStripMenuItem1.Click += new System.EventHandler(this.agregarAristaDirigidaToolStripMenuItem1_Click);
-            // 
-            // eliminarAristaToolStripMenuItem1
-            // 
-            this.eliminarAristaToolStripMenuItem1.Name = "eliminarAristaToolStripMenuItem1";
-            this.eliminarAristaToolStripMenuItem1.Size = new System.Drawing.Size(190, 22);
-            this.eliminarAristaToolStripMenuItem1.Text = "Eliminar arista";
             // 
             // seleccionarAristaToolStripMenuItem
             // 
@@ -247,7 +239,6 @@
         private System.Windows.Forms.ToolStripMenuItem aristaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem agregarAristaToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem agregarAristaDirigidaToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem eliminarAristaToolStripMenuItem1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.ToolStripMenuItem seleccionarVérticeToolStripMenuItem;

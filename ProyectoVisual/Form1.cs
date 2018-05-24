@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using Newtonsoft.Json;
-
+using Microsoft.VisualBasic;
 namespace ProyectoVisual
 {
     public partial class Form1 : Form
@@ -32,6 +32,9 @@ namespace ProyectoVisual
         Graphics lienzo;
         Pen flD;
         int tam = 4;
+        int auxv1, auxv2;
+        delegate void d();
+        d arisDir;
         //Acciones
         int tipo; //Define el tipo de objeto que se va a agregar
         int selectMove = -1;                   //selectMove es para el nodo que fue seleccionado para que se mueva
@@ -72,7 +75,7 @@ namespace ProyectoVisual
             corriendoPrograma = true;
             Actualizado.Start();
 
-            
+            arisDir = VerticesD;
 
         }
 
@@ -97,28 +100,6 @@ namespace ProyectoVisual
                 case 0: // Agregar vértices
                     grafo.AgregaVertice(lienzo, e.X, e.Y, pictureBox1.Width, pictureBox1.Height);
                     up2Date = false;
-                    break;
-                case 2: //Arista dirigida
-                    foreach (Vertice v in grafo.Vertices)
-                    {
-                        if (v.Seleccion(e.X, e.Y) && toque == 0)
-                        {
-                            v1 = v;
-                            toque = 1;
-                            v1.Seleccionar(lienzo);
-                        }
-                        else if (v.Seleccion(e.X, e.Y) && toque == 1)
-                        {
-                            v2 = v;
-                            v2.Seleccionar(lienzo);
-                            if (!v1.Equals(v2))
-                            {
-                                grafo.AgregarAristaDir(lienzo, v1, v2);
-                                up2Date = false;
-                                toque = 0;
-                            }
-                        }
-                    }
                     break;
                 case 82: // eliminar vertice
                         for (int i = 0; i < grafo.Vertices.Count; i++) {
@@ -148,19 +129,53 @@ namespace ProyectoVisual
                             {
                                 grafo.AgregaArista(lienzo,v1, v2);
                                 up2Date = false;
-                                //lienzo.DrawLine(new Pen(Color.Black), v1.X, v1.Y, v2.X, v2.Y);
                                 toque = 0;
                             }
                         }
                     }
                     break;
             }
-            
-            Console.WriteLine(grafo.Aristas.Count);
-          //  pictureBox1.Invalidate();
         }
 
-
+        public void VerticesD(){
+            string a, b;
+            int c = 0;
+            a  = Interaction.InputBox("Vertice inicial: ", "Arista dirigida", "0", 100, 50);
+            b= Interaction.InputBox("Vertice final: ", "Arista dirigida", "0", 100, 50);
+            try
+            {
+                auxv1 = Convert.ToInt32(a);
+                auxv2 = Convert.ToInt32(b);
+            }
+            catch (Exception e){ }
+            foreach (Vertice v in grafo.Vertices)
+            {
+                tipo = 2;
+                if (auxv1 != auxv2 && (v.ID + 1) == auxv1 && c == 0)
+                {
+                    v1 = v;
+                    v1.Seleccionar(lienzo);
+                    c = 1;
+                    Console.WriteLine("entre ejejejeje");
+                }
+            }
+                foreach (Vertice v in grafo.Vertices) {
+                  if  (auxv1 != auxv2 && (v.ID + 1) == auxv2 && c == 1)
+                   {
+                        v2 = v;
+                        v2.Seleccionar(lienzo);
+                        grafo.AgregarAristaDir(lienzo, v1, v2);
+                        up2Date = false;
+                        toque = 0;
+                        Console.WriteLine("entre 2 ejejejeje");
+                    }
+                }
+                 if(auxv1 == auxv2)
+                {
+                    MessageBox.Show("No pueden ser iguales");
+                }
+            Console.WriteLine(grafo.Aristas.Count);
+        }
         //AGREGAR VERTICE
         private void agregarVérticeToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -300,8 +315,6 @@ namespace ProyectoVisual
            
         }
 
-        
-
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
 
@@ -411,7 +424,9 @@ namespace ProyectoVisual
 
         private void agregarAristaDirigidaToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            tipo = 2;
+            //tipo = 2;
+            arisDir.Invoke();
         }
+
     }
 }
